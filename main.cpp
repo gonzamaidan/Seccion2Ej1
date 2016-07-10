@@ -4,21 +4,23 @@
 */
 
 #include <iostream>
-#define MAX_STRING 100
 using namespace std;
 string ReadMensaje();
 string CodificarMensaje(string mensaje, int n, int e);
+char CodificarLetra(char letra, int n, int e);
 void DecodificarMensaje(string mensaje, int n, int d);
+char DecodificarLetra(char letra, int n, int d);
+long double Power(int base, int exponente);
 
 int main () {
-	//Clave publica (93,43)
-	//Clave privada (93, 7)
-	int n = 93;
+	//Clave publica (65,7)
+	//Clave privada (65,7)
+	int n = 65;
 	int d = 7;
-	int e = 43;
+	int e = 7;
 	string mensajeSinCodificar = ReadMensaje();
-	//char* mensajeCodificado = CodificarMensaje(mensajeSinCodificar, n, e);
-	//DecodificarMensaje(mensajeCodificado, n, d);
+	string mensajeCodificado = CodificarMensaje(mensajeSinCodificar, n, e);
+	DecodificarMensaje(mensajeCodificado, n, d);
 }
 
 string ReadMensaje() {
@@ -34,10 +36,37 @@ string ReadMensaje() {
 }
 
 string CodificarMensaje(string mensaje, int n, int e) {
-	char mensajeCodificado [MAX_STRING];
-	
+	string codificado = "";
+	cout << "El mensaje codificado es:\n";
+	for(int i = 0; i != mensaje.length(); i++) {
+		codificado += CodificarLetra(mensaje[i],n,e);
+		cout << (int) codificado[i] << '\t';
+	}
+	return codificado;
+}
+char CodificarLetra(char letra, int n, int e) {
+	cout.precision(25);
+	return (long long unsigned int) Power(letra-64, e)%n;
 }
 void DecodificarMensaje(string mensaje, int n, int d) {
-	
+	string decodificado = "";
+	cout << "\nEl mensaje decodificado es:\n";
+	for(int i = 0; i != mensaje.length(); i++) {
+		decodificado += DecodificarLetra(mensaje[i],n,d);
+		cout << decodificado[i];
+	}
 }
+
+char DecodificarLetra(char letra, int n, int d) {
+	return (long long unsigned int)Power(letra, d)%n   + 64;
+}
+
+long double Power(int base, int exponente) {
+	long double resultado = 1;
+	for(int i = 0; i < exponente; i++) {
+		resultado = resultado * base;
+	}
+	return resultado;
+}
+
 
