@@ -20,7 +20,13 @@ int main () {
 	int e = 7;
 	string mensajeSinCodificar = ReadMensaje();
 	string mensajeCodificado = CodificarMensaje(mensajeSinCodificar, n, e);
-	DecodificarMensaje(mensajeCodificado, n, d);
+	cout << "\nSi desea recuperar el mensaje original escriba la tecla s, sino igrese cualquier otra telca: \n";
+	if(cin.get() == 's') {
+		DecodificarMensaje(mensajeCodificado, n, d);
+		cin.get();
+		cin.get();
+	}
+		
 }
 
 string ReadMensaje() {
